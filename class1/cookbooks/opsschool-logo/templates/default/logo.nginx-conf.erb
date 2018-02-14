@@ -1,0 +1,8 @@
+server {
+  listen node['nginx']['port'];
+  server_name localhost;
+
+  location / {
+    root node['nginx']['directory'];
+  }
+}
