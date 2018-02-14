@@ -11,8 +11,16 @@ directory node['nginx']['directory'] do
   action :create
 end
 
-template "#{node['nginx']['directory']}/index.html" do
-  source logo.nginx-conf.erb
+cookbook_file "#{node['nginx']['directory']}/index.html" do
+  source 'logo.html'
+  mode '0755'
+  owner node['nginx']['user']
+  group node['nginx']['user']
+  action :create
+end
+
+template "/etc/nginx/sites-available/logo" do
+  source 'logo.nginx-conf.erb'
   mode '0755'
   owner node['nginx']['user']
   group node['nginx']['user']
@@ -32,8 +40,8 @@ file '/etc/nginx/sites-enabled/default' do
 end
 
 
-link '/etc/nginx/sites-available/logo' do
-  to '/etc/nginx/sites-enabled/'
+link '/etc/nginx/sites-enabled/logo' do
+  to '/etc/nginx/sites-available/logo'
   link_type :symbolic
   action :create
 end

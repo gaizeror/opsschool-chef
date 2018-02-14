@@ -1,8 +1,8 @@
 server {
-  listen node['nginx']['port'];
+  listen <%= node['nginx']['port'] %>;
   server_name localhost;
 
   location / {
-    root node['nginx']['directory'];
+    root <%= node['nginx']['directory'] %>;
   }
 }
